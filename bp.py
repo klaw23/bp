@@ -8,6 +8,10 @@ from flask import Flask, request
 
 app = Flask(__name__)
 
+@app.route('/')
+def index():
+    return 'Get Burrito Pronto in the Pebble App Store.'
+
 @app.route('/order')
 def order():
     """ Pass username and passwords as request args to order. """
