@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 from flask import Flask, request
 
 app = Flask(__name__)
-app.debug = True
 
 @app.route('/order')
 def order():
