@@ -4,16 +4,13 @@ import re
 import requests
 
 from bs4 import BeautifulSoup
-from flask import Flask
+from flask import Flask, request
 
 app = Flask(__name__)
 app.debug = True
 
 @app.route('/')
 def hello():
-    # Load username and password from file.
-    login = json.loads(open('login.json').read())
-
     # Use a requests session to log in.
     with requests.Session() as s:
         # Get the CSRF token.
@@ -24,8 +21,8 @@ def hello():
         # Login.
         response = s.post('https://postmates.com/v1/web_login'
                           '?client=customer.web&version=0.0.0',
-                          data={'username': login['username'],
-                                'password': login['password']},
+                          data={'username': request.args['username'],
+                                'password': request.args['password']},
                           headers={'Referer': 'https://postmates.com',
                                    'X-CSRFToken': csrf_token})
 
@@ -35,7 +32,7 @@ def hello():
         csrf_token = soup.findAll(attrs={"name":"csrf-token"})[0]['content']
 
         # Add burrito to cart.
-        response =\
+        response = \
         s.post('https://postmates.com/v1/carts/'
                'a17da034-8f9f-48a8-bab5-25759c6a01ec'
                '/add?client=customer.web&version=0.0.0',
