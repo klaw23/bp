@@ -90,7 +90,7 @@ def order():
                         'pancho-villa-taqueria-san-francisco/checkout',
                         'X-CSRFToken': csrf_token})
 
-    return response.text
+    return '<a href="https://postmates.com">Ordered</a>'
 
 if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
