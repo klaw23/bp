@@ -29,9 +29,11 @@ def order():
                                 'password': request.form['password']},
                           headers={'Referer': 'https://postmates.com',
                                    'X-CSRFToken': csrf_token})
+        response.raise_for_status()
 
         # Get the CSRF token.
         response = s.get('https://postmates.com')
+        response.raise_for_status()
         soup = BeautifulSoup(response.text)
         csrf_token = soup.findAll(attrs={"name":"csrf-token"})[0]['content']
 
@@ -51,10 +53,12 @@ def order():
                         'pancho-villa-taqueria-san-francisco/view/'
                         'e666416e-6d59-4f90-a5d4-9f64868f9e7b',
                         'X-CSRFToken': csrf_token})
+        response.raise_for_status()
 
         # Get CSRF token and checkout data.
         response = s.get('https://postmates.com/sf/'
                          'pancho-villa-taqueria-san-francisco/checkout')
+        response.raise_for_status()
         soup = BeautifulSoup(response.text)
         csrf_token = soup.findAll(attrs={"name":"csrf-token"})[0]['content']
         pickup = soup.findAll(attrs={"name":"pickup_place_uuid"})[0]['value']
@@ -81,6 +85,7 @@ def order():
                headers={'Referer': 'https://postmates.com/sf/'
                         'pancho-villa-taqueria-san-francisco/checkout',
                         'X-CSRFToken': csrf_token})
+        response.raise_for_status()
 
         # Get the job id.
         job_id = json.loads(response.text)['uuid']
@@ -93,6 +98,7 @@ def order():
                headers={'Referer': 'https://postmates.com/sf/'
                         'pancho-villa-taqueria-san-francisco/checkout',
                         'X-CSRFToken': csrf_token})
+        response.raise_for_status()
 
     return '<a href="https://postmates.com">Ordered</a>'
 
