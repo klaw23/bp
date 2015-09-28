@@ -9,8 +9,9 @@ from flask import Flask, request
 app = Flask(__name__)
 app.debug = True
 
-@app.route('/')
-def hello():
+@app.route('/order')
+def order():
+    """ Pass username and passwords as request args to order. """
     # Use a requests session to log in.
     with requests.Session() as s:
         # Get the CSRF token.
