@@ -12,9 +12,9 @@ app = Flask(__name__)
 def index():
     return '<a href="http://apps.getpebble.com/en_US/application/5608c78f2b1bc571e800001c">Get Burrito Pronto in the Pebble App Store.</a>'
 
-@app.route('/order')
+@app.route('/order', methods=['POST'])
 def order():
-    """ Pass username and passwords as request args to order. """
+    """ Pass username and passwords in request form to order. """
     # Use a requests session to log in.
     with requests.Session() as s:
         # Get the CSRF token.
@@ -25,8 +25,8 @@ def order():
         # Login.
         response = s.post('https://postmates.com/v1/web_login'
                           '?client=customer.web&version=0.0.0',
-                          data={'username': request.args['username'],
-                                'password': request.args['password']},
+                          data={'username': request.form['username'],
+                                'password': request.form['password']},
                           headers={'Referer': 'https://postmates.com',
                                    'X-CSRFToken': csrf_token})
 
