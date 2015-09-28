@@ -1,3 +1,0 @@
-[submodule "postmates"]
-	path = postmates
-	url = git@github.com:far33d/py-postmates.git
