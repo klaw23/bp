@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Get Burrito Pronto in the Pebble App Store.'
+    return '<a href="http://apps.getpebble.com/en_US/application/5608c78f2b1bc571e800001c">Get Burrito Pronto in the Pebble App Store.</a>'
 
 @app.route('/order')
 def order():
